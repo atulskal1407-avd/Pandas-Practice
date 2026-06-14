@@ -1,19 +1,28 @@
-name: CI Pipeline
+name: Parallel CI Pipeline
 
 on:
   push:
     branches: [main]
 
 jobs:
-  build:
+
+  job1:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - name: Run script 1
+        run: echo "Job 1 running" && python hello.py
 
-      - name: Show files
-        run: ls -R
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run script 2
+        run: echo "Job 2 running" && python hello.py
 
-      - name: Run Python
-        run: python hello.py
+  job3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run script 3
+        run: echo "Job 3 running" && python hello.py
